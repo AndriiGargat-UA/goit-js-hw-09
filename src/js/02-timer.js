@@ -39,7 +39,7 @@ const timer = {
             const currentTime = new Date();
             const dataTime = startTime - currentTime;
             const time = convertMs(dataTime);
-            console.log(time)
+            // console.log(time);
             if (dataTime < 1000) {
                 clearInterval(intervalId);
                 Notiflix.Notify.info('Time out')
