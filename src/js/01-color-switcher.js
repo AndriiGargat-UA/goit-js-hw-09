@@ -7,17 +7,24 @@ const delay = 1000;
 let intervalId = null;
 stopBtnRef.setAttribute('disabled', true);
 
-function startColorSwich() { 
+function startDisabledAdd() {
     startBtnRef.setAttribute('disabled', true);
     stopBtnRef.removeAttribute('disabled');
+};
+function stopDisabledAdd() {
+    stopBtnRef.setAttribute('disabled', true);
+    startBtnRef.removeAttribute('disabled');
+};
+
+function startColorSwich() { 
+    startDisabledAdd();
     intervalId = setInterval(() => {
     bodyRef.style.backgroundColor = getRandomHexColor();
     }, delay);
 };
 
 function stopColorSwich() {
-    stopBtnRef.setAttribute('disabled', true);
-    startBtnRef.removeAttribute('disabled');
+    stopDisabledAdd();
     clearInterval(intervalId);
 };
 

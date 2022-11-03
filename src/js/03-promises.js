@@ -6,6 +6,19 @@ const stepInputRef = getEl('input[name="step"]');
 const amountInputRef = getEl('input[name="amount"]');
 const submitBtnRef = getEl('button');
 
+function createPromise(position, delay) {
+  return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3; 
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve({position, delay});// Fulfill
+      } else {
+        reject({position, delay});// Reject
+      };
+    }, delay)
+  })
+};  
+
 formRef.addEventListener('input', () => {
   let delay = parseInt(delayInputRef.value);
   let step = parseInt(stepInputRef.value);
@@ -13,18 +26,6 @@ formRef.addEventListener('input', () => {
   submitBtnRef.addEventListener('click', (event) => {
     event.preventDefault();
 
-    function createPromise(position, delay) {
-      return new Promise((resolve, reject) => {
-        const shouldResolve = Math.random() > 0.3; 
-        setTimeout(() => {
-          if (shouldResolve) {
-            resolve({position, delay});// Fulfill
-          } else {
-            reject({position, delay});// Reject
-          };
-        }, delay)
-      })
-    };   
     for(let i = 1; i <= amount; i += 1) {
       createPromise(i, delay).then(({position, delay}) => {
         Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
