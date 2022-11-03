@@ -27,12 +27,19 @@ formRef.addEventListener('input', () => {
     event.preventDefault();
 
     for(let i = 1; i <= amount; i += 1) {
-      createPromise(i, delay).then(({position, delay}) => {
-        Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({position, delay}) => {
-        Notiflix.Notify.failure(`Rejected promise ${position} in ${delay}ms`);
-      })
+      createPromise(i, delay)
+        .then(({ position, delay }) => {
+          Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+        })
+        .catch(({ position, delay }) => {
+          Notiflix.Notify.failure(`Rejected promise ${position} in ${delay}ms`);
+        })
+        .finally(() => {
+          formRef.reset();
+          delay = 0;
+          step = 0;
+          amount = 0;
+        });
       delay += step;
     };
   })
